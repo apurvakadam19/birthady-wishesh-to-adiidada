@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 🎉</title>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+.hidden {
+    display: none;
+}
+
+#startScreen {
+    margin-top: 100px;
+}
+
+input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background: #ff4b5c;
+    color: white;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.card {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+}
+
+#photoSlider {
+    width: 90%;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+audio {
+    margin-top: 20px;
+}
+
+/* Mobile */
+@media(max-width:600px){
+    h2 { font-size: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Name Input -->
+<div id="startScreen">
+    <h2>Enter Your Name 🎁</h2>
+    <input type="text" id="nameInput" placeholder="Your Name">
+    <br>
+    <button onclick="start()">Start</button>
+</div>
+
+<!-- Note Section -->
+<div id="noteSection" class="hidden">
+    <div class="card">
+        <h2 id="wish"></h2>
+        <p>
+Happy Birthday, Bhai ❤️🎉 <br><br>
+
+You’re not just my elder brother, you’re my biggest support system, my guide, and my forever protector. Thank you for always standing by me, understanding me even when I don’t say anything, and making life so much easier just by being there.<br><br>
+
+I’m so proud of everything you’ve achieved, especially this new chapter of your life. You truly deserve all the success, happiness, and love in the world. I know you’ll achieve even bigger dreams and reach your dream company one day ✨<br><br>
+
+May your life be filled with endless happiness, good health, and success. Keep shining, keep growing, and always keep smiling.<br><br>
+
+Love you so much, Bhai 💙<br>
+Forever your little sibling 💫
+        </p>
+
+        <button onclick="showMemories()">Check the Memory 📸</button>
+    </div>
+</div>
+
+<!-- Memory Section -->
+<div id="memorySection" class="hidden">
+    <h2>Memories 📸</h2>
+    <img id="photoSlider" src="photo1.jpg">
+
+    <!-- Music (Working without download) -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<script>
+let photos = [
+    "photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg",
+    "photo6.jpg","photo7.jpg","photo8.jpg","photo9.jpg","photo10.jpg"
+];
+
+let photoIndex = 0;
+
+function start() {
+    let name = document.getElementById("nameInput").value;
+
+    if(name === ""){
+        alert("Please enter name!");
+        return;
+    }
+
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("noteSection").classList.remove("hidden");
+
+    document.getElementById("wish").innerText =
+        "Happy Birthday " + name + " 🎉";
+
+    confetti({
+        particleCount: 200,
+        spread: 120
+    });
+}
+
+function showMemories(){
+    document.getElementById("noteSection").style.display = "none";
+    document.getElementById("memorySection").classList.remove("hidden");
+
+    startPhotoSlider();
+
+    // Start music after click (browser rule)
+    document.getElementById("bgMusic").play();
+}
+
+function startPhotoSlider(){
+    let img = document.getElementById("photoSlider");
+
+    img.src = photos[photoIndex];
+
+    setInterval(() => {
+        photoIndex++;
+        if(photoIndex >= photos.length){
+            photoIndex = 0;
+        }
+        img.src = photos[photoIndex];
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
